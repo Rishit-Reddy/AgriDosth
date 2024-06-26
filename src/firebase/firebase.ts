@@ -23,7 +23,7 @@ const auth = getAuth(app);
 const createRecaptchaVerifier = () => {
   return new RecaptchaVerifier(auth, 'recaptcha-container', {
     size: 'invisible',
-    callback: (response: any) => {
+    callback: () => {
       // reCAPTCHA solved, allow signInWithPhoneNumber.
       console.log("reCAPTCHA solved, allow signInWithPhoneNumber.");
     },
