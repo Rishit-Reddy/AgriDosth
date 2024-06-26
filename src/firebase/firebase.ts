@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, RecaptchaVerifier } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -20,4 +20,19 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export { app, auth };
+const createRecaptchaVerifier = () => {
+  return new RecaptchaVerifier(auth, 'recaptcha-container', {
+    size: 'invisible',
+    callback: (response: any) => {
+      // reCAPTCHA solved, allow signInWithPhoneNumber.
+      console.log("reCAPTCHA solved, allow signInWithPhoneNumber.");
+    },
+    'expired-callback': () => {
+      // Response expired. Ask user to solve reCAPTCHA again.
+      console.log("Response expired. Ask user to solve reCAPTCHA again.");
+    }
+  });  // Pass the `auth` object as the third parameter
+};
+
+
+export { app, auth, createRecaptchaVerifier };
