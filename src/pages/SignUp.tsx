@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { RootState } from "../redux/store";
-import { signUpWithEmail, clearMessage } from "../redux/auth/authSlice";
+import { signUpWithEmail, clearMessage, googleSignIn } from "../redux/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const SignUp : React.FC = () => {
@@ -30,6 +30,10 @@ const SignUp : React.FC = () => {
         dispatch(signUpWithEmail({ email, password }));
     };
 
+    const handleGoogleSignIn = () => {
+        dispatch(googleSignIn());
+    }
+
     useEffect(() => {
         if (successMessage) {
           alert(successMessage);
@@ -42,25 +46,35 @@ const SignUp : React.FC = () => {
     return (
         <div>
             <h1>Sign Up</h1>
+            <p>
+                <button type="button" onClick={handleGoogleSignIn}>Continue with Google</button>
+            </p>
+            <p>or</p>
             <form onSubmit={handleSubmit}>
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <input
-                    type="password"
-                    placeholder="Confirm Password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                />
+                <p>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </p>
+                <p>
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </p>
+                <p>
+                    <input
+                        type="password"
+                        placeholder="Confirm Password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                </p>
                 <button type="submit" disabled={loading}>
                     Sign Up
                 </button>
