@@ -8,7 +8,7 @@ function App() {
   const user = useAppSelector((state) => state.auth.user);
 
   return (
-    <Router>
+    <Router basename="/AgriDosth">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={user? <Navigate to="/" />: <Login />} />
