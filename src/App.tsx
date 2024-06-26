@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import { useAppSelector } from './hooks';
 import OtpSignInPage from './pages/OtpSignIn';
+import './index.css'
 
 function App() {
   const user = useAppSelector((state) => state.auth.user);
