@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import { useAppSelector } from './hooks';
+import OtpSignInPage from './pages/OtpSignIn';
 
 function App() {
   const user = useAppSelector((state) => state.auth.user);
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={user? <Navigate to="/" />: <Login />} />
         <Route path="/signup" element={user? <Navigate to="/" /> : <SignUp />} />
+        <Route path="/otp-signin" element={user? <Navigate to="/" /> : <OtpSignInPage />} />
         <Route path="*" element={<Navigate to={user ? "/" : "/login"} />} />
       </Routes>
     </Router>

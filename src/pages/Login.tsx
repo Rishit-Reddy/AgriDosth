@@ -1,7 +1,7 @@
 // src/pages/LoginPage.tsx
 import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { signInWithEmail } from '../redux/auth/authSlice';
+import { signInWithEmail, googleSignIn } from '../redux/auth/authSlice';
 import { RootState } from '../redux/store';
 import { Link } from 'react-router-dom';
 
@@ -15,6 +15,10 @@ const LoginPage: React.FC = () => {
     e.preventDefault();
     dispatch(signInWithEmail({ email, password }));
   };
+  
+  const handleGoogleSignIn = () => {
+    dispatch(googleSignIn());
+  }
 
   return (
     <div>
@@ -26,15 +30,21 @@ const LoginPage: React.FC = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        <br />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <br />
+        <p></p>
         <button type="submit" disabled={loading}>
           Login
         </button>
+        <br />
+        <p>or</p>
+        <button type='button' onClick={handleGoogleSignIn}>Continue with Google</button>
         {error && <p>{error}</p>}
       </form>
       <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
