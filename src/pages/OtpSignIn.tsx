@@ -6,6 +6,7 @@ import { clearMessage } from '../redux/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 import PhoneNumberInput from '../components/authentication/PhoneNumberInput';
 import OtpVerification from '../components/authentication/OtpVerification';
+import page_bg from "../assets/Auth-1-background.webp";
 
 const OtpSignInPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const OtpSignInPage: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-cover" style={{ backgroundImage: 'url(src/assets/Auth_1_background.webp)' }}>
+    <div className="min-h-screen flex items-center justify-center bg-cover" style={{ backgroundImage: `url(${page_bg})` }}>
       <div className="bg-white mx-3 p-4 pt-3 pb-5 sm:p-8 rounded-xl shadow-2xl w-full max-w-md">
         <h1 className="text-2xl font-bold m-3 text-center">OTP Sign-In</h1>
         {!confirmationResult ? <PhoneNumberInput /> : <OtpVerification />}
