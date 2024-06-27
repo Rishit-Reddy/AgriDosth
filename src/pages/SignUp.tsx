@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import { RootState } from "../redux/store";
 import { signUpWithEmail, clearMessage, googleSignIn } from "../redux/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import page_bg from "../assets/Auth-1-background.webp";
 
 const SignUp: React.FC = () => {
 
@@ -44,7 +45,7 @@ const SignUp: React.FC = () => {
 
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-cover" style={{ backgroundImage: 'url(src/assets/Auth_1_background.webp)' }}>
+        <div className="min-h-screen flex items-center justify-center bg-cover" style={{ backgroundImage: `url(${page_bg})` }}>
             <div className="bg-white p-4 sm:p-8 rounded shadow-2xl w-full max-w-md">
                 <h1 className="text-2xl font-bold mb-6 text-center">Sign Up</h1>
                 <p className="text-center">
