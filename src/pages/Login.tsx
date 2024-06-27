@@ -22,7 +22,7 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-cover" style={{ backgroundImage: 'url(src/assets/Auth_1_background.webp)' }}>
+    <div className="min-h-screen flex items-center justify-center bg-cover" style={{ backgroundImage: 'url(/AgriDosth/src/assets/Auth_1_background.webp)' }}>
       <div className="bg-white mx-3 p-8 rounded-lg shadow-2xl w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
