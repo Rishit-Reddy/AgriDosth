@@ -11,7 +11,7 @@ const Home: React.FC = () => {
     }
 
     return (
-        <div className="min-h-screen bg-cover bg-center" style={{ backgroundImage: 'url(/path-to-your-image.jpg)' }}>
+        <div className="min-h-screen bg-cover bg-center">
             <div className="container mx-auto p-4">
                 <header className="flex justify-between items-center py-6">
                     <h1 className="text-3xl font-bold text-black">AgriDosth</h1>

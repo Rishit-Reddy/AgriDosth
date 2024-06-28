@@ -21,11 +21,12 @@ const OtpVerification: React.FC = () => {
       <form onSubmit={handleVerifyOtp} className="space-y-4">
         <label htmlFor="otp" className="block text-sm font-medium text-gray-700">Enter OTP:</label>
         <input
-          type="text"
+          type="number"
           id="otp"
           placeholder='E.g. 123456'
           value={otp}
           onChange={(e) => setOtp(e.target.value)}
+          maxLength={6}
           required
           className="w-full px-3 py-2 border rounded"
         />
