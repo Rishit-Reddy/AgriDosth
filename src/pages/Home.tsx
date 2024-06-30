@@ -1,17 +1,47 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../hooks";
-import { signOut } from "../redux/auth/authSlice";
+import { fetchUserProfile, signOut } from "../redux/auth/authSlice";
+import Navbar from "../components/Navbar/Navbar";
+import MobileSearchBar from "../components/Navbar/MobileSearchbar";
+
+
 
 const Home: React.FC = () => {
     const user = useAppSelector((state) => state.auth.user);
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const userProfile = useAppSelector((state) => state.auth.userProfile);
+    const isProfileComplete = userProfile?.isProfileComplete;
+
+    useEffect(() => {
+        if (user && !isProfileComplete) {
+          dispatch(fetchUserProfile(user.uid));
+        }
+      }, [user, dispatch]);
+    
+      useEffect(() => {
+        if (userProfile && !isProfileComplete) {
+          navigate('/profileupdate');
+        }
+      }, [userProfile, navigate]);
+
     const handleSignOut = () => {
         dispatch(signOut());
     }
 
     return (
-        <div className="min-h-screen bg-cover bg-center">
+        <>
+            <Navbar />
+            <MobileSearchBar />
+        </>
+    );
+}
+
+export default Home;
+
+
+{/* <div className="min-h-screen bg-cover bg-center">
             <div className="container mx-auto p-4">
                 <header className="flex justify-between items-center py-6">
                     <h1 className="text-3xl font-bold text-black">AgriDosth</h1>
@@ -50,8 +80,4 @@ const Home: React.FC = () => {
                     </div>
                 </main>
             </div>
-        </div>
-    );
-}
-
-export default Home;
+        </div> */}

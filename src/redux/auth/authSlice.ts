@@ -1,8 +1,22 @@
 // src/slices/authSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { auth, createRecaptchaVerifier } from '../../firebase/firebase'; // Assuming you have firebase configured in firebase.ts
+import { auth, createRecaptchaVerifier, db } from '../../firebase/firebase'; // Assuming you have firebase configured in firebase.ts
 import { User, UserCredential, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, ConfirmationResult, signInWithPhoneNumber } from 'firebase/auth';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
+export interface UserProfile {
+  name: string;
+  phoneNumber: string;
+  address: {
+    Address: string;
+    city: string;
+    state: string;
+    Pincode: string;
+    country: string;
+  };
+  email: string;
+  isProfileComplete: boolean;
+}
 
 export interface AuthState {
   user: User | null;
@@ -10,7 +24,7 @@ export interface AuthState {
   error: string | null;
   successMessage: string | null;
   confirmationResult: ConfirmationResult | null;
-
+  userProfile: UserProfile | null;
 }
 
 const initialState: AuthState = {
@@ -19,7 +33,7 @@ const initialState: AuthState = {
   error: null,
   successMessage: null,
   confirmationResult: null,
-
+  userProfile: null,
 };
 
 // Type annotations for async thunk arguments
@@ -27,6 +41,40 @@ interface AuthCredentials {
   email: string;
   password: string;
 }
+
+interface UpdateProfilePayload {
+  uid: string;
+  profile: UserProfile;
+}
+
+export const updateProfile = createAsyncThunk<void, UpdateProfilePayload, { rejectValue: string }>(
+  'auth/updateProfile',
+  async ({ uid, profile }, { rejectWithValue }) => {
+    try {
+      await setDoc(doc(db, 'users', uid), profile);
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchUserProfile = createAsyncThunk<UserProfile, string, { rejectValue: string }>(
+  'auth/fetchUserProfile',
+  async (uid, { rejectWithValue }) => {
+    try {
+      const docRef = doc(db, 'users', uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        return docSnap.data() as UserProfile;
+      } else {
+        // Handle the case where the user does not have a profile yet
+        return rejectWithValue('No profile found');
+      }
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 // Async thunk for signing in with email and password
 export const signInWithEmail = createAsyncThunk<User, AuthCredentials, { rejectValue: string }>(
@@ -47,7 +95,20 @@ export const signUpWithEmail = createAsyncThunk<User, AuthCredentials, { rejectV
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const userCredential: UserCredential = await createUserWithEmailAndPassword(auth, email, password);
-      return userCredential.user;
+      const user = userCredential.user;
+
+      const newUserProfile = {
+        uid: user.uid,
+        email: user.email,
+        name: '',
+        address: { Address: '', city: '', state: '', Pincode: '', country: '' },
+        phoneNumber: '',
+        isProfileComplete: false
+      };
+
+      await setDoc(doc(db, 'users', user.uid), newUserProfile);
+
+      return user;
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
@@ -60,6 +121,24 @@ export const googleSignIn = createAsyncThunk<User, void, {rejectValue: string}>(
       try {
         const provider = new GoogleAuthProvider();
         const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+
+        const userProfileRef = doc(db, 'users', user.uid);
+        const userProfileSnap = await getDoc(userProfileRef);
+
+      // If profile doesn't exist, create it
+      if (!userProfileSnap.exists()) {
+        const newUserProfile = {
+          uid: user.uid,
+          email: user.email,
+          name: user.displayName,
+          address: { Address: '', city: '', state: '', Pincode: '', country: '' },
+          phoneNumber: user.phoneNumber,
+          isProfileComplete: false  
+        };
+        await setDoc(userProfileRef, newUserProfile);
+      }
+
         return result.user;
       } catch (error: any) {
         return rejectWithValue(error.message);
@@ -85,7 +164,24 @@ export const googleSignIn = createAsyncThunk<User, void, {rejectValue: string}>(
     async ({ confirmationResult, otp }, { rejectWithValue }) => {
       try {
         const result = await confirmationResult.confirm(otp);
-        return result.user;
+        const user = result.user;
+
+        const userProfileRef = doc(db, 'users', user.uid);
+        const userProfileSnap = await getDoc(userProfileRef);
+
+        if (!userProfileSnap.exists()) {
+          const newUserProfile = {
+            uid: user.uid,
+            email: user.email,  // May not always be available for OTP
+            name: '',
+            address: { Address: '', city: '', state: '', Pincode: '', country: '' },
+            phoneNumber: user.phoneNumber,
+            isProfileComplete: false
+          };
+          await setDoc(userProfileRef, newUserProfile);
+        }
+
+        return user;
       } catch (error: any) {
         return rejectWithValue(error.message);
       }
@@ -115,7 +211,14 @@ const authSlice = createSlice({
     }, 
     setConfirmationResult: (state, action: PayloadAction<ConfirmationResult | null>) => {
       state.confirmationResult = action.payload;
-    }
+    },
+    setUser(state, action: PayloadAction<User>) {
+      state.user = action.payload;
+    },
+    clearUser(state) {
+      state.user = null;
+      state.userProfile = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -193,9 +296,32 @@ const authSlice = createSlice({
       .addCase(verifyOtp.rejected, (state, action: PayloadAction<any>) => {
         state.loading = false;
         state.error = action.payload as string;
+      })
+      .addCase(updateProfile.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.userProfile = action.meta.arg.profile;
+      })
+      .addCase(updateProfile.rejected, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(fetchUserProfile.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchUserProfile.fulfilled, (state, action: PayloadAction<UserProfile>) => {
+        state.loading = false;
+        state.userProfile = action.payload;
+      })
+      .addCase(fetchUserProfile.rejected, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.error = action.payload as string;
       });
   },
 });
 
-export const { clearMessage } = authSlice.actions;
+export const { clearMessage, setUser, clearUser, setConfirmationResult } = authSlice.actions;
 export default authSlice.reducer;

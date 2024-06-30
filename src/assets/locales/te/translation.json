@@ -1,10 +1,18 @@
 {
-    "welcome": "స్వాగతం",
-    "hello": "హలో",
-    "goodbye": "విదాయం",
-    "thankyou": "ధన్యవాదాలు",
-    "yes": "అవును",
-    "no": "కాదు",
-    "test": "ఇది ఒక పరీక్ష",
-    "description": "ఇది ఒక వ్యవసాయ ఉత్పన్నాలను కనుగొనడానికి ఒక వేదిక."
+    "pages":{
+      "home":{
+
+      }
+    },
+    "components":{
+
+    },
+    "common": {
+        "description": "ఇది ఒక వ్యవసాయ ఉత్పన్నాలను కనుగొనడానికి ఒక వేదిక.",
+        "Continue with Google": "గూగుల్‌తో కొనసాగండి",
+        "Continue with Phone": "ఫోన్‌తో కొనసాగండి",
+        "Login": "లాగిన్",
+        "Don't have an account?": ""
+    }
 }
+  

@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import { RootState } from "../redux/store";
 import { signUpWithEmail, clearMessage, googleSignIn } from "../redux/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import page_bg from "../assets/Auth-1-background.webp";
 
 const SignUp: React.FC = () => {
@@ -12,6 +13,7 @@ const SignUp: React.FC = () => {
     const [confirmPassword, setConfirmPassword] = React.useState<string>('');
     const dispatch = useAppDispatch();
     const { loading, error, successMessage } = useAppSelector((state: RootState) => state.auth);
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -50,10 +52,10 @@ const SignUp: React.FC = () => {
                 <h1 className="text-2xl font-bold mb-6 text-center">Sign Up</h1>
                 <p className="text-center">
                     <button type="button" onClick={handleGoogleSignIn} className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600">
-                        Continue with Google
+                        {t("common.Continue with Google")}
                     </button>
                     <button type='button' onClick={() => navigate("/otp-signin")} className="w-full bg-slate-500 text-white py-2 mt-2 rounded hover:bg-slate-600">
-                        Continue with Phone
+                        {t("common.Continue with Phone")}
                     </button>
                 </p>
                 <p className="text-center my-4">or</p>

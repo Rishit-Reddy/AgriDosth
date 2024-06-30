@@ -1,5 +1,36 @@
 {
-    "welcome": "Welcome to Our Website",
-    "description": "This is a platform where you can find agricultural products."
-  }
+    "pages":{
+      "profile":{
+        "name": "Name",
+        "email": "Email",
+        "phoneNumber": "Phone Number",
+        "address": {
+          "Address": "Address",
+          "city": "City",
+          "state": "State",
+          "Pincode":  "Pincode",
+          "country": "Country"
+        },
+        "update": "Update"
+      }
+    },
+    "components":{
+      "navbar":{
+        "cart": "Cart",
+        "profile": "Profile"
+      },
+      "searchbar":{
+        "search": "Search"
+      }
+    },
+    "common": {
+      "title": "AgriDosth",
+      "Continue with Google": "Continue with Google",
+      "Continue with Phone": "Continue with Phone",
+      "Login": "Login",
+      "Signout": "Sign Out",
+      "Sign Up": "Sign Up",
+      "Don't have an account?": "Don't have an account?"
+    }
+}
   
