@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../hooks';
 import { signInWithEmail, googleSignIn } from '../redux/auth/authSlice';
 import { RootState } from '../redux/store';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import page_bg from "../assets/Auth-1-background.webp";
 
 const LoginPage: React.FC = () => {
@@ -12,6 +13,7 @@ const LoginPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const { loading, error } = useAppSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +27,7 @@ const LoginPage: React.FC = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-cover" style={{ backgroundImage: `url(${page_bg})` }}>
       <div className="bg-white mx-3 p-8 rounded-lg shadow-2xl w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">{t("common.Login")}</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="email"
@@ -42,14 +44,14 @@ const LoginPage: React.FC = () => {
             className="w-full px-3 py-2 border rounded"
           />
           <button type="submit" disabled={loading} className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
-            Login
+            {t("common.Login")}
           </button>
           <p className="text-center">or</p>
           <button type='button' onClick={handleGoogleSignIn} className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600">
-            Continue with Google
+            {t("common.Continue with Google")}
           </button>
           <button type='button' onClick={() => navigate("/otp-signin")} className="w-full bg-slate-500 text-white py-2 rounded hover:bg-slate-600">
-            Continue with Phone
+            {t("common.Continue with Phone")}
           </button>
           {error && <p className="text-red-500 text-center">{error}</p>}
         </form>
