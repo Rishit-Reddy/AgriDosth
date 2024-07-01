@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import { fetchUserProfile } from "../redux/auth/authSlice";
 import Navbar from "../components/Navbar/Navbar";
 import MobileSearchBar from "../components/Navbar/MobileSearchbar";
 import { useNavigate } from "react-router-dom";
-
-
+import CategoryFilterBar from "../components/filter/CategoryFilterBar";
+import ProductsDisplay from "../components/products/ProductsDisplay"; // Ensure you have this component
 
 const Home: React.FC = () => {
     const user = useAppSelector((state) => state.auth.user);
@@ -14,22 +14,29 @@ const Home: React.FC = () => {
     const userProfile = useAppSelector((state) => state.auth.userProfile);
     const isProfileComplete = userProfile?.isProfileComplete;
 
+    const [selectedCategory, setSelectedCategory] = useState("All");
+
     useEffect(() => {
         if (user && !isProfileComplete) {
           dispatch(fetchUserProfile(user.uid));
         }
-      }, [user, dispatch]);
+    }, [user, dispatch]);
     
-      useEffect(() => {
+    useEffect(() => {
         if (userProfile && !isProfileComplete) {
           navigate('/profileupdate');
         }
-      }, [userProfile, navigate]);
+    }, [userProfile, navigate]);
 
     return (
         <>
             <Navbar />
             <MobileSearchBar />
+            <CategoryFilterBar 
+              selectedCategory={selectedCategory} 
+              setSelectedCategory={setSelectedCategory} 
+            />
+            <ProductsDisplay selectedCategory={selectedCategory} />
         </>
     );
 }
