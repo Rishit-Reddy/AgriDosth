@@ -4,9 +4,11 @@ import { collection, query, where, getDocs } from 'firebase/firestore';
 
 const ProductsDisplay = ({ selectedCategory }: { selectedCategory: string }) => {
   const [products, setProducts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true); // Start loading
       const productsCollection = collection(db, "products");
       const q = selectedCategory === "All"
         ? productsCollection
@@ -15,10 +17,15 @@ const ProductsDisplay = ({ selectedCategory }: { selectedCategory: string }) => 
       const querySnapshot = await getDocs(q);
       const productList: any = querySnapshot.docs.map(doc => doc.data());
       setProducts(productList);
+      setLoading(false); // End loading
     };
 
     fetchProducts();
   }, [selectedCategory]);
+
+  if (loading) {
+    return <div className="p-4 text-center text-gray-700 text-lg">Loading...</div>;
+  }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
