@@ -1,18 +1,30 @@
 import { useEffect, useState } from 'react';
-import { db } from '../../firebase/firebase'; // Firebase config import
+import { db } from '../../firebase/firebase'; // Ensure you have the right path to your Firebase config
 import { collection, query, where, getDocs } from 'firebase/firestore';
 
-const ProductsDisplay = ({ selectedCategory }: { selectedCategory: string }) => {
+const ProductsDisplay = ({ selectedCategory, subCategory }: { selectedCategory: string, subCategory: string }) => {
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true); // Start loading
+      let q;
       const productsCollection = collection(db, "products");
-      const q = selectedCategory === "All"
-        ? productsCollection
-        : query(productsCollection, where("category", "==", selectedCategory));
+
+      if (selectedCategory === "All") {
+        q = productsCollection;
+      } else {
+        if (subCategory === "All") {
+          q = query(productsCollection, where("category", "==", selectedCategory));
+        } else {
+          if (selectedCategory === 'Seed') {
+            q = query(productsCollection, where("category", "==", selectedCategory), where("type", "==", subCategory));
+          } else {
+            q = query(productsCollection, where("category", "==", selectedCategory), where("brand", "==", subCategory));
+          }
+        }
+      }
 
       const querySnapshot = await getDocs(q);
       const productList: any = querySnapshot.docs.map(doc => doc.data());
@@ -21,7 +33,7 @@ const ProductsDisplay = ({ selectedCategory }: { selectedCategory: string }) => 
     };
 
     fetchProducts();
-  }, [selectedCategory]);
+  }, [selectedCategory, subCategory]);
 
   if (loading) {
     return <div className="p-4 text-center text-gray-700 text-lg">Loading...</div>;
