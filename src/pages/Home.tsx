@@ -15,6 +15,7 @@ const Home: React.FC = () => {
     const isProfileComplete = userProfile?.isProfileComplete;
 
     const [selectedCategory, setSelectedCategory] = useState("All");
+    const [subCategory, setSubCategory] = useState('All');
 
     useEffect(() => {
         if (user && !isProfileComplete) {
@@ -35,8 +36,10 @@ const Home: React.FC = () => {
             <CategoryFilterBar 
               selectedCategory={selectedCategory} 
               setSelectedCategory={setSelectedCategory} 
+              subCategory={subCategory}
+              setSubCategory={setSubCategory}
             />
-            <ProductsDisplay selectedCategory={selectedCategory} />
+            <ProductsDisplay selectedCategory={selectedCategory} subCategory={subCategory} />
         </>
     );
 }
