@@ -23,6 +23,8 @@ const Home: React.FC = () => {
         }
     }, [user, dispatch]);
     
+    console.log(userProfile);
+
     useEffect(() => {
         if (userProfile && !isProfileComplete) {
           navigate('/profileupdate');
