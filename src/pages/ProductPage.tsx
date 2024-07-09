@@ -12,7 +12,7 @@ const ProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const translationLanguage = i18n.language;
 
   useEffect(() => {
