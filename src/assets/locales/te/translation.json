@@ -1,18 +1,51 @@
 {
-    "pages":{
-      "home":{
-
-      }
-    },
-    "components":{
-
-    },
-    "common": {
-        "description": "ఇది ఒక వ్యవసాయ ఉత్పన్నాలను కనుగొనడానికి ఒక వేదిక.",
-        "Continue with Google": "గూగుల్‌తో కొనసాగండి",
-        "Continue with Phone": "ఫోన్‌తో కొనసాగండి",
-        "Login": "లాగిన్",
-        "Don't have an account?": ""
+  "pages": {
+    "profile": {
+      "name": "పేరు",
+      "email": "ఈమెయిల్",
+      "phoneNumber": "ఫోన్ నంబర్",
+      "address": {
+        "Address": "చిరునామా",
+        "city": "నగరం",
+        "state": "రాష్ట్రం",
+        "Pincode": "పిన్‌కోడ్",
+        "country": "దేశం"
+      },
+      "cart": {
+        "shoppingCart": "షాపింగ్ కార్ట్",
+        "orderSummary": "ఆర్డర్ సమ్మరి",
+        "productDetails": "ఉత్పత్తి వివరాలు",
+        "checkout": "చెకౌట్",
+        "Quantity": "పరిమాణం",
+        "Total": "మొత్తం",
+        "items": "అంశాలు"
+      },
+      "update": "అప్డేట్"
     }
+  },
+  "components": {
+    "navbar": {
+      "cart": "కార్ట్",
+      "profile": "ప్రొఫైల్"
+    },
+    "searchbar": {
+      "search": "వెతకండి"
+    }
+  },
+  "common": {
+    "title": "క్రాప్ నీడ్స్",
+    "Continue with Google": "గూగుల్‌తో కొనసాగించండి",
+    "Continue with Phone": "ఫోన్‌తో కొనసాగించండి",
+    "Login": "లాగిన్",
+    "Signout": "సైన్ అవుట్",
+    "Sign Up": "సైన్ అప్",
+    "Don't have an account?": "ఖాతా లేనివారికి?",
+    "language" : "భాషలు",
+    "english": "ఆంగ్లం",
+    "telugu": "తెలుగు",
+    "tamil": "తమిళం",
+    "malayalam": "మలయాళం",
+    "kannada": "కన్నడం",
+    "hindi": "హిందీ"
+  }
 }
-  

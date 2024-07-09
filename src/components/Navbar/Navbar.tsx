@@ -7,8 +7,9 @@ import { signOut } from '../../redux/auth/authSlice';
 import SearchBar from './SearchBar'; // Import the SearchBar component
 
 const Navbar = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
+  const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
   const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -17,7 +18,13 @@ const Navbar = () => {
     dispatch(signOut());
     navigate('/login');
   };
-  
+
+  const changeLanguage = (language: string) => {
+    i18n.changeLanguage(language);
+    setIsLanguageMenuOpen(false);
+    
+  };
+
   return (
     <nav className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,7 +32,7 @@ const Navbar = () => {
           {/* Logo Section */}
           <div className="flex-shrink-0 flex items-center px-3">
             <Link to="/">
-            <h3 className="text-2xl font-bold text-blue-600">{t('common.title')}</h3>
+              <h3 className="text-2xl font-bold text-blue-600">{t('common.title')}</h3>
             </Link>
           </div>
           {/* Search Bar */}
@@ -58,6 +65,24 @@ const Navbar = () => {
                 </Link>
               </>
             )}
+            {/* Language Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
+                className="text-gray-700 text-base font-medium rounded-md focus:outline-none focus:text-gray-900">
+                {t('common.language')}
+              </button>
+              {isLanguageMenuOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+                  <button onClick={() => changeLanguage('en')} className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">{t('common.english')}</button>
+                  <button onClick={() => changeLanguage('te')} className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">{t('common.telugu')}</button>
+                  <button onClick={() => changeLanguage('hi')} className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">{t('common.hindi')}</button>
+                  <button onClick={() => changeLanguage('ta')} className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">{t('common.tamil')}</button>
+                  <button onClick={() => changeLanguage('kn')} className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">{t('common.kannada')}</button>
+                  <button onClick={() => changeLanguage('ml')} className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">{t('common.malayalam')}</button>
+                </div>
+              )}
+            </div>
           </div>
           {/* Hamburger Menu Button */}
           <div className="flex sm:hidden">
@@ -98,6 +123,24 @@ const Navbar = () => {
                 </Link>
               </>
             )}
+            {/* Mobile Language Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 focus:text-gray-900">
+                {t('common.language')}
+              </button>
+              {isLanguageMenuOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+                  <button onClick={() => changeLanguage('en')} className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">{t('common.english')}</button>
+                  <button onClick={() => changeLanguage('te')} className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">{t('common.telugu')}</button>
+                  <button onClick={() => changeLanguage('hi')} className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">{t('common.hindi')}</button>
+                  <button onClick={() => changeLanguage('ta')} className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">{t('common.tamil')}</button>
+                  <button onClick={() => changeLanguage('kn')} className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">{t('common.kannada')}</button>
+                  <button onClick={() => changeLanguage('ml')} className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">{t('common.malayalam')}</button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}

@@ -11,6 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google-cloud/firestore": "^7.9.0",
+    "@google-cloud/translate": "^8.3.0",
     "@reduxjs/toolkit": "^2.2.5",
     "firebase": "^10.12.2",
     "i18next": "^23.11.5",

@@ -1,0 +1,53 @@
+{
+    "pages": {
+      "profile": {
+        "name": "नाम",
+        "email": "ईमेल",
+        "phoneNumber": "फ़ोन नंबर",
+        "address": {
+          "Address": "पता",
+          "city": "शहर",
+          "state": "राज्य",
+          "Pincode": "पिनकोड",
+          "country": "देश"
+        },
+        "cart": {
+          "shoppingCart": "शॉपिंग कार्ट",
+          "orderSummary": "ऑर्डर सारांश",
+          "productDetails": "उत्पाद विवरण",
+          "checkout": "चेकआउट",
+          "Quantity": "मात्रा",
+          "Total": "कुल",
+          "shippingAddress": "शिपिंग पता",
+          "items": "आइटम्स"
+        },
+        "update": "अपडेट"
+      }
+    },
+    "components": {
+      "navbar": {
+        "cart": "कार्ट",
+        "profile": "प्रोफाइल"
+      },
+      "searchbar": {
+        "search": "खोजें"
+      }
+    },
+    "common": {
+      "title": "फसल की ज़रूरतें",
+      "Continue with Google": "गूगल के साथ जारी रखें",
+      "Continue with Phone": "फ़ोन के साथ जारी रखें",
+      "Login": "लॉगिन",
+      "Signout": "साइन आउट",
+      "Sign Up": "साइन अप",
+      "Don't have an account?": "क्या आपके पास खाता नहीं है?",
+      "language" : "भाषाएँ",
+      "english": "अंग्रेज़ी",
+      "telugu": "तेलुगु",
+      "tamil": "तमिल",
+      "malayalam": "मलयालम",
+      "kannada": "कन्नड़",
+      "hindi": "हिंदी"
+    }
+  }
+  

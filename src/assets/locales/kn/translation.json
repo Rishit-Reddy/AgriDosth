@@ -1,0 +1,53 @@
+{
+    "pages": {
+      "profile": {
+        "name": "ಹೆಸರು",
+        "email": "ಇಮೇಲ್",
+        "phoneNumber": "ಫೋನ್ ಸಂಖ್ಯೆ",
+        "address": {
+          "Address": "ವಿಳಾಸ",
+          "city": "ನಗರ",
+          "state": "ರಾಜ್ಯ",
+          "Pincode": "ಪಿನ್‌ಕೋಡ್",
+          "country": "ದೇಶ"
+        },
+        "cart": {
+          "shoppingCart": "ಶಾಪಿಂಗ್ ಕಾರ್ಟ್",
+          "orderSummary": "ಆದೇಶ ಸಾರಾಂಶ",
+          "productDetails": "ಉತ್ಪನ್ನದ ವಿವರಗಳು",
+          "checkout": "ಚೆಕ್ಔಟ್",
+          "Quantity": "ಪ್ರಮಾಣ",
+          "Total": "ಒಟ್ಟು",
+          "shippingAddress": "ಸರಕು ಸಾಗಣೆ ವಿಳಾಸ",
+          "items": "ಐಟೆಂಗಳು"
+        },
+        "update": "ನವೀಕರಿಸು"
+      }
+    },
+    "components": {
+      "navbar": {
+        "cart": "ಕಾರ್ಟ್",
+        "profile": "ಪ್ರೊಫೈಲ್"
+      },
+      "searchbar": {
+        "search": "ಹುಡುಕಿ"
+      }
+    },
+    "common": {
+      "title": "ಕ್ರಾಪ್ ನೀಡ್ಸ್",
+      "Continue with Google": "ಗುಗಲ್‌ನೊಂದಿಗೆ ಮುಂದುವರಿಸಿ",
+      "Continue with Phone": "ಫೋನ್‌ನೊಂದಿಗೆ ಮುಂದುವರಿಸಿ",
+      "Login": "ಲಾಗಿನ್",
+      "Signout": "ಸೈನ್ ಔಟ್",
+      "Sign Up": "ಸೈನ್ ಅಪ್",
+      "Don't have an account?": "ಖಾತೆ ಇಲ್ಲವೇ?",
+      "language" : "ಭಾಷೆಗಳು",
+      "english": "ಇಂಗ್ಲಿಷ್",
+      "telugu": "ತೆಲುಗು",
+      "tamil": "ತಮಿಳು",
+      "malayalam": "ಮಲಯಾಳಂ",
+      "kannada": "ಕನ್ನಡ",
+      "hindi": "ಹಿಂದಿ"
+    }
+  }
+  

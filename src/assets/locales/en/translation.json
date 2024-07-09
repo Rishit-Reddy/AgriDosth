@@ -11,6 +11,16 @@
           "Pincode":  "Pincode",
           "country": "Country"
         },
+        "cart": {
+          "shoppingCart": "Shopping Cart",
+          "orderSummary": "Order Summary",
+          "productDetails": "Product Details",
+          "checkout": "Checkout",
+          "Quantity": "Quantity",
+          "Total": "Total",
+          "shippingAddress": "Shipping Address",
+          "items": "items"
+        },
         "update": "Update"
       }
     },
@@ -30,7 +40,14 @@
       "Login": "Login",
       "Signout": "Sign Out",
       "Sign Up": "Sign Up",
-      "Don't have an account?": "Don't have an account?"
+      "Don't have an account?": "Don't have an account?",
+      "language" : "Language",
+      "english": "English",
+      "telugu": "Telugu",
+      "tamil": "Tamil",
+      "malayalam": "Malayalam",
+      "kannada": "Kannada",
+      "hindi": "Hindi"
     }
 }
   

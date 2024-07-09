@@ -1,0 +1,52 @@
+{
+    "pages": {
+      "profile": {
+        "name": "പേര്",
+        "email": "ഇമെയിൽ",
+        "phoneNumber": "ഫോൺ നമ്പർ",
+        "address": {
+          "Address": "വിലാസം",
+          "city": "നഗരം",
+          "state": "സംസ്ഥാനം",
+          "Pincode": "പിൻകോഡ്",
+          "country": "രാജ്യം"
+        },
+        "cart": {
+          "shoppingCart": "ഷോപ്പിംഗ് കാർട്ട്",
+          "orderSummary": "ഓർഡർ സമാരംഭം",
+          "productDetails": "ഉൽപ്പന്ന വിശദാംശങ്ങൾ",
+          "checkout": "ചെക്കൗട്ട്",
+          "Quantity": "അളവ്",
+          "Total": "മൊത്തം",
+          "shippingAddress": "ഷിപ്പിംഗ് വിലാസം",
+          "items": "ഇനങ്ങൾ"
+        },
+        "update": "അപ്ഡേറ്റ്"
+      }
+    },
+    "components": {
+      "navbar": {
+        "cart": "കാർട്ട്",
+        "profile": "പ്രൊഫൈൽ"
+      },
+      "searchbar": {
+        "search": "തിരയൂ"
+      }
+    },
+    "common": {
+      "title": "ക്രോപ്പ് നീഡ്സ്",
+      "Continue with Google": "ഗൂഗിളുമായി തുടരുമോ",
+      "Continue with Phone": "ഫോണുമായി തുടരുമോ",
+      "Login": "ലോഗിൻ",
+      "Signout": "സൈൻ ഔട്ട്",
+      "Sign Up": "സൈൻ അപ്",
+      "Don't have an account?": "അക്കൗണ്ട് ഇല്ലേ?",
+      "language" : "ഭാഷകൾ",
+      "english": "ഇംഗ്ലീഷ്",
+      "telugu": "തെലുഗു",
+      "tamil": "തമിഴ്",
+      "malayalam": "മലയാളം",
+      "kannada": "കന്നഡ",
+      "hindi": "ഹിന്ദി"
+    }
+  }
