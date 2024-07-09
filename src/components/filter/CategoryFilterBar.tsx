@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { db } from '../../firebase/firebase'; // Ensure you have the right path to your Firebase config
 import { collection, getDocs } from 'firebase/firestore';
 import "../../assets/css/CategoryFilterBar.css";
+import { useTranslation } from 'react-i18next';
+import translateText from '../../utilites/googleTranslation';
 
 import allIcon from "../../assets/All.jpeg";
 import pesticidesIcon from "../../assets/pesticides.png";
@@ -11,8 +13,11 @@ import organicIcon from "../../assets/organic.png";
 import bioIcon from "../../assets/bio.png";
 
 const CategoryFilterBar = ({ selectedCategory, setSelectedCategory, subCategory, setSubCategory }: { selectedCategory: string, setSelectedCategory: (category: string) => void, subCategory: string, setSubCategory: (subCategory: string) => void }) => {
-  const [categories, setCategories] = useState(["All"]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [translatedCategories, setTranslatedCategories] = useState<{ [key: string]: string }>({});
   const [subCategories, setSubCategories] = useState<string[]>([]);
+  const { i18n } = useTranslation();
+  const translationLanguage = i18n.language;
 
   const categoryIcons: { [key: string]: string } = {
     "All": allIcon,
@@ -27,31 +32,57 @@ const CategoryFilterBar = ({ selectedCategory, setSelectedCategory, subCategory,
     const fetchCategories = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "products"));
-        const categorySet = new Set();
-      
-        querySnapshot.docs.forEach(doc => {
+        const categorySet = new Set<string>();
+        const translations: { [key: string]: string } = {};
+
+        const translationsPromises = querySnapshot.docs.map(async (doc) => {
           const category = doc.data().category;
           if (category) {
             categorySet.add(category);
+            if (translationLanguage !== 'en') {
+              translations[category] = await translateText(category, translationLanguage);
+            } else {
+              translations[category] = category;
+            }
           }
-        })
-      
-        const categoryList: any = ["All", ...Array.from(categorySet)];
+        });
+
+        await Promise.all(translationsPromises);
+
+        const translatedAll = translationLanguage !== 'en' ? await translateText("All", translationLanguage) : "All";
+        const categoryList = ["All", ...Array.from(categorySet)];
         setCategories(categoryList);
+        translations["All"] = translatedAll;
+
+        const translatedCategoryList = await Promise.all(categoryList.map(async (category) => {
+          if (translationLanguage !== 'en' && category !== "All") {
+            return await translateText(category, translationLanguage);
+          }
+          return category;
+        }));
+
+        const translatedCategoryObject = categoryList.reduce((acc, category, index) => {
+          acc[category] = translatedCategoryList[index];
+          return acc;
+        }, {} as { [key: string]: string });
+
+        translatedCategoryObject["All"] = translatedAll;
+        setTranslatedCategories(translatedCategoryObject);
+        console.log(translations, categoryList, translatedCategoryObject);
       } catch (error) {
         console.error("Error fetching categories: ", error);
       }
     };
 
     fetchCategories();
-  }, []);
+  }, [translationLanguage]);
 
   useEffect(() => {
     const fetchSubCategories = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "products"));
-        const subCategorySet = new Set();
-      
+        const subCategorySet = new Set<string>();
+
         querySnapshot.docs.forEach(doc => {
           if (doc.data().category === selectedCategory) {
             const subCategory = selectedCategory === 'Seed' ? doc.data().type : doc.data().brand;
@@ -59,9 +90,9 @@ const CategoryFilterBar = ({ selectedCategory, setSelectedCategory, subCategory,
               subCategorySet.add(subCategory);
             }
           }
-        })
-      
-        const subCategoryList: any = ["All", ...Array.from(subCategorySet)];
+        });
+
+        const subCategoryList = ["All", ...Array.from(subCategorySet)];
         setSubCategories(subCategoryList);
       } catch (error) {
         console.error("Error fetching subcategories: ", error);
@@ -74,6 +105,11 @@ const CategoryFilterBar = ({ selectedCategory, setSelectedCategory, subCategory,
       setSubCategories([]);
     }
   }, [selectedCategory]);
+
+  const getCategoryIcon = (category: string) => {
+    const originalCategory = Object.keys(translatedCategories).find(key => translatedCategories[key] === category) || category;
+    return categoryIcons[originalCategory] || allIcon;
+  };
 
   return (
     <div className="bg-white shadow-md py-2">
@@ -89,8 +125,8 @@ const CategoryFilterBar = ({ selectedCategory, setSelectedCategory, subCategory,
               }}
               className={`flex flex-col items-center text-gray-700 text-base font-medium focus:outline-none focus:text-gray-900 hover:bg-gray-100 px-2 py-1 whitespace-nowrap ${selectedCategory === category ? "bg-gray-200" : ""}`}
             >
-              <img src={categoryIcons[category]} alt={category} className="h-12 w-100 rounded-full mb-1" />
-              <span>{category}</span>
+              <img src={getCategoryIcon(category)} alt={category} className="h-12 w-100 rounded-full mb-1" />
+              <span>{translatedCategories[category]}</span>
             </button>
           ))}
         </div>

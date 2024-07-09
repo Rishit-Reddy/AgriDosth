@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar/Navbar";
 import MobileSearchBar from "../components/Navbar/MobileSearchbar";
 import { useNavigate } from "react-router-dom";
 import CategoryFilterBar from "../components/filter/CategoryFilterBar";
-import ProductsDisplay from "../components/products/ProductsDisplay"; // Ensure you have this component
+import ProductsDisplay from "../components/products/ProductsDisplay"; 
 
 const Home: React.FC = () => {
     const user = useAppSelector((state) => state.auth.user);

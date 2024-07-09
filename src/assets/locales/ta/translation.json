@@ -1,0 +1,52 @@
+{
+    "pages": {
+      "profile": {
+        "name": "பெயர்",
+        "email": "மின்னஞ்சல்",
+        "phoneNumber": "தொலைபேசி எண்",
+        "address": {
+          "Address": "முகவரி",
+          "city": "நகரம்",
+          "state": "மாநிலம்",
+          "Pincode": "அஞ்சல் குறியீடு",
+          "country": "நாடு"
+        },
+        "cart": {
+          "shoppingCart": "ஷாப்பிங் கார்ட்",
+          "orderSummary": "ஆர்டர் சுருக்கம்",
+          "productDetails": "தயாரிப்பு விவரங்கள்",
+          "checkout": "செக்அவுட்",
+          "Quantity": "அளவு",
+          "Total": "மொத்தம்",
+          "shippingAddress": "ஷிப்பிங் முகவரி",
+          "items": "பொருட்கள்"
+        },
+        "update": "மேம்படுத்தல்"
+      }
+    },
+    "components": {
+      "navbar": {
+        "cart": "கார்ட்",
+        "profile": "சுயவிவரம்"
+      },
+      "searchbar": {
+        "search": "தேடுங்கள்"
+      }
+    },
+    "common": {
+      "title": "விவசாயத் தேவைகள்",
+      "Continue with Google": "கூகுளுடன் தொடரவும்",
+      "Continue with Phone": "தொலைபேசியுடன் தொடரவும்",
+      "Login": "உள்நுழைய",
+      "Signout": "வெளியேறு",
+      "Sign Up": "பதிவு செய்ய",
+      "Don't have an account?": "உங்களிடம் கணக்கு இல்லையா?",
+      "language" : "மொழிகள்",
+      "english": "ஆங்கிலம்",
+      "telugu": "தெலுகு",
+      "tamil": "தமிழ்",
+      "malayalam": "மலையாளம்",
+      "kannada": "கன்னடம்",
+      "hindi": "இந்தி"
+    }
+  }
