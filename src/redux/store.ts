@@ -4,19 +4,20 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import authReducer from './auth/authSlice';
 import cartReducer, { CartState } from './cart/cartSlice'; // Import the cart reducer and CartState
+import searchReducer, { SearchState } from './searchSlice/searchSlice'; // ImpIch redthe r
 
 // Combine all your reducers into a rootReducer
 const rootReducer = combineReducers({
   auth: authReducer,
   cart: cartReducer, // Add the cart reducer
-  // Add other reducers here if you have any
+  search: searchReducer, // Add the search reducer
 });
 
 // Create a persist config
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth', 'cart'], // Persist both auth and cart reducers
+  whitelist: ['auth', 'cart', 'search'], // Persist both auth and cart reducers
 };
 
 // Create a persisted reducer
@@ -31,6 +32,7 @@ export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState> & {
   cart: CartState; // Include CartState in the RootState type
+  search: SearchState;
 };
 export type AppDispatch = typeof store.dispatch;
 

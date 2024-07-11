@@ -1,7 +1,14 @@
 import { useTranslation } from 'react-i18next';
+import { useAppDispatch } from '../../hooks';
+import { setSearchQuery } from '../../redux/searchSlice/searchSlice';
 
 const SearchBar = () => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchQuery(e.target.value));
+  }
 
   return (
     <div className="relative w-full">
@@ -9,6 +16,7 @@ const SearchBar = () => {
         type="text"
         className="h-10 w-full pl-3 pr-12 py-2 border border-gray-300 rounded-md text-sm leading-5 bg-white focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
         placeholder={t('components.searchbar.search')}
+        onChange={handleChange}
       />
       <button className="absolute right-2 top-1/2 transform -translate-y-1/2 h-8 w-8 flex items-center justify-center text-gray-500 focus:outline-none bg-gray-100 rounded-full hover:bg-gray-200">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
