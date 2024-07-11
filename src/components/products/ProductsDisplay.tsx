@@ -1,61 +1,77 @@
-import { useEffect, useState } from 'react';
-import { db } from '../../firebase/firebase'; // Ensure you have the right path to your Firebase config
+import React, { useEffect, useState } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
+import { db } from '../../firebase/firebase'; // Ensure this path is correct for your project structure
 import { useNavigate } from 'react-router-dom';
 import AddToCartButton from './AddToCartButton';
-import translateText from '../../utilites/googleTranslation'; // Import your translate function
+import translateText from '../../utilites/googleTranslation'; // Make sure this utility works as expected
 import { useTranslation } from 'react-i18next';
+import { useAppSelector } from '../../hooks';
 
 const ProductsDisplay = ({ selectedCategory, subCategory }: { selectedCategory: string, subCategory: string }) => {
   const [products, setProducts] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
   const { i18n } = useTranslation();
   const translatationLanguage = i18n.language;
   const navigate = useNavigate();
+  const searchQuery = useAppSelector(state => state.search.query);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      setLoading(true); // Start loading
-      let q;
-      const productsCollection = collection(db, "products");
+      setLoading(true);
+      let q = query(collection(db, "products"));
 
-      if (selectedCategory === "All") {
-        q = productsCollection;
-      } else {
-        if (subCategory === "All") {
-          q = query(productsCollection, where("category", "==", selectedCategory));
-        } else {
+      const conditions = [];
+      if (selectedCategory !== "All") {
+        conditions.push(where("category", "==", selectedCategory));
+        if (subCategory !== "All") {
           if (selectedCategory === 'Seed') {
-            q = query(productsCollection, where("category", "==", selectedCategory), where("type", "==", subCategory));
+            conditions.push(where("type", "==", subCategory));
           } else {
-            q = query(productsCollection, where("category", "==", selectedCategory), where("brand", "==", subCategory));
+            conditions.push(where("brand", "==", subCategory));
           }
         }
       }
 
+      if (searchQuery) {
+        conditions.push(where("name", ">=", searchQuery));
+        conditions.push(where("name", "<=", searchQuery + '\uf8ff'));
+      }
+
+      if (conditions.length) {
+        q = query(collection(db, "products"), ...conditions);
+      }
+
       const querySnapshot = await getDocs(q);
-      const productList: any = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+      // Define a type for your product items
+      type ProductItem = {
+        id: string;
+        name: string; // Include other properties as needed
+        description: string; // Assuming description is also a property you're fetching
+      };
+      
+      let productList = querySnapshot.docs.map(doc => ({ ...doc.data() as ProductItem, id: doc.id }));
 
       if (translatationLanguage !== 'en') {
-        // Translate product details
-        const translatedProductList = await Promise.all(productList.map(async (product: any) => {
-          const translatedName = await translateText(product.name || '', translatationLanguage);
-          const translatedDescription = await translateText(product.description || '', translatationLanguage);
+        productList = await Promise.all(productList.map(async product => {
+          const translatedName = await translateText(product.name, translatationLanguage);
+          const translatedDescription = await translateText(product.description, translatationLanguage);
           return { ...product, name: translatedName, description: translatedDescription };
         }));
-        setProducts(translatedProductList);
-        setLoading(false); // End loading
-      } else {
-        setProducts(productList);
-        setLoading(false); // End loading
       }
+
+      setProducts(productList);
+      setLoading(false);
     };
 
     fetchProducts();
-  }, [selectedCategory, subCategory, translatationLanguage]);
+  }, [selectedCategory, subCategory, translatationLanguage, searchQuery]);
 
   if (loading) {
     return <div className="p-4 text-center text-gray-700 text-lg">Loading...</div>;
+  }
+
+  if (!products.length) {
+    return <div className="p-4 text-center text-gray-700 text-lg">No products found</div>;
   }
 
   return (
@@ -64,7 +80,7 @@ const ProductsDisplay = ({ selectedCategory, subCategory }: { selectedCategory: 
         <div
           key={index}
           className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden transition-shadow duration-300 ease-in-out cursor-pointer"
-          onClick={() => navigate(`/product/${product.id}`)} // Navigate to product page on click
+          onClick={() => navigate(`/product/${product.id}`)}
         >
           <div className="block sm:hidden grid grid-cols-2 gap-2">
             <div className="col-span-1">
@@ -89,8 +105,6 @@ const ProductsDisplay = ({ selectedCategory, subCategory }: { selectedCategory: 
               <p className="text-gray-800 font-semibold">Brand: {product.brand}</p>
               <p className="text-gray-800 font-semibold">Price: ₹{product.price}</p>
               <p className="text-gray-800 font-semibold">Quantity: {product.quantity}</p>
-            </div>
-            <div className="p-4">
               <AddToCartButton productId={product.id} />
             </div>
           </div>

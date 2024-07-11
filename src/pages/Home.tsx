@@ -6,6 +6,7 @@ import MobileSearchBar from "../components/Navbar/MobileSearchbar";
 import { useNavigate } from "react-router-dom";
 import CategoryFilterBar from "../components/filter/CategoryFilterBar";
 import ProductsDisplay from "../components/products/ProductsDisplay"; 
+import CarouselComponent from "../components/carousel/CarouselComponent";
 
 const Home: React.FC = () => {
     const user = useAppSelector((state) => state.auth.user);
@@ -17,13 +18,12 @@ const Home: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [subCategory, setSubCategory] = useState('All');
 
+
     useEffect(() => {
         if (user && !isProfileComplete) {
           dispatch(fetchUserProfile(user.uid));
         }
     }, [user, dispatch]);
-    
-    console.log(userProfile);
 
     useEffect(() => {
         if (userProfile && !isProfileComplete) {
@@ -41,6 +41,7 @@ const Home: React.FC = () => {
               subCategory={subCategory}
               setSubCategory={setSubCategory}
             />
+            <CarouselComponent />
             <ProductsDisplay selectedCategory={selectedCategory} subCategory={subCategory} />
         </>
     );
