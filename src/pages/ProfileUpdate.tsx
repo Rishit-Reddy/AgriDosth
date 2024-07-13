@@ -48,8 +48,8 @@ const ProfileUpdate: React.FC = () => {
         e.preventDefault();
         if (user) {
             dispatch(updateProfile({ uid: user.uid, profile: { ...profile, isProfileComplete: true } }));
-            navigate('/');
         }
+        navigate('/');
     };
 
     return (
