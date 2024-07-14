@@ -15,6 +15,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/firebase';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
+import PaymentQRCode from './pages/PaymentsPage';
 
 function App() {
   const user = useAppSelector((state) => state.auth.user);
@@ -44,6 +45,7 @@ function App() {
         <Route path="/cart" element={user ? <CartPage /> : <Navigate to="/login" />} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="*" element={<Navigate to={user ? "/" : "/login"} />} />
+        <Route path='/payment' element={user ? <PaymentQRCode amount={350}/> : <Navigate to="/" />} />
       </Routes>
     </Router>
   );

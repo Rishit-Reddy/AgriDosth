@@ -7,6 +7,7 @@ import Navbar from '../components/Navbar/Navbar';
 import MobileSearchBar from '../components/Navbar/MobileSearchbar';
 import translateText from '../utilites/googleTranslation'; 
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const CartPage: React.FC = () => {
     const cartItems = useAppSelector((state) => state.cart.items);
@@ -15,6 +16,7 @@ const CartPage: React.FC = () => {
     const userProfile = useAppSelector((state) => state.auth.userProfile);
     const { t, i18n } = useTranslation();
     const translationLanguage = i18n.language;
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -193,6 +195,7 @@ const CartPage: React.FC = () => {
                                     </div>
                                     <button
                                         className="w-full text-center bg-indigo-600 rounded-xl py-3 px-6 font-semibold text-lg text-white transition-all duration-500 hover:bg-indigo-700"
+                                        onClick={() => {navigate('/payment')}}
                                     >
                                         {t('pages.profile.cart.checkout')}
                                     </button>
