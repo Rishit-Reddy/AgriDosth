@@ -1,7 +1,7 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 
-import PaymentQRCode from './PaymentsPage';
+// import PaymentQRCode from './PaymentsPage';
 
 const MyComponent: React.FC = () => {
   // const { t, i18n } = useTranslation();
