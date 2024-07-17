@@ -6,7 +6,7 @@ import { RootState } from '../../redux/store';
 
 const PhoneNumberInput: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { loading, error } = useAppSelector((state: RootState) => state.auth);
+  const { loading } = useAppSelector((state: RootState) => state.auth);
   const [phoneNumber, setPhoneNumber] = useState('');
 
   const handleSendOtp = (e: React.FormEvent) => {
