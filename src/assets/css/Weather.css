@@ -1,0 +1,29 @@
+/* src/assets/css/weatherUI.css */
+.weather-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .weather-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+  }
+  
+  .weather-details {
+    width: 200px; /* Adjust width as needed */
+    top: 100%; /* Position directly below the button */
+    z-index: 10;
+  }
+  
+  .weather-icon img {
+    display: block;
+    width: auto;
+    height: 24px; /* Size of the weather icon */
+  }
+  
+  .temperature {
+    font-weight: bold;
+  }
+  

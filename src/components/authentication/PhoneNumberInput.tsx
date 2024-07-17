@@ -31,7 +31,7 @@ const PhoneNumberInput: React.FC = () => {
           Send OTP
         </button>
       </form>
-      {error && <p className="text-red-500 text-center mt-2">{error}</p>}
+      {/* {error && <p className="text-red-500 text-center mt-2">{error}</p>} */}
       <div id="recaptcha-container" className="mt-4"></div>
     </div>
   );

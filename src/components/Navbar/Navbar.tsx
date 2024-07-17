@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { signOut } from '../../redux/auth/authSlice';
 import SearchBar from './SearchBar'; // Import the SearchBar component
+import WeatherWidget from './WeatherWidget';
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
@@ -83,6 +84,7 @@ const Navbar = () => {
                 </div>
               )}
             </div>
+            <WeatherWidget />
           </div>
           {/* Hamburger Menu Button */}
           <div className="flex sm:hidden">
@@ -141,6 +143,7 @@ const Navbar = () => {
                 </div>
               )}
             </div>
+            <WeatherWidget />
           </div>
         </div>
       )}

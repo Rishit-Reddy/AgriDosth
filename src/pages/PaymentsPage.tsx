@@ -43,6 +43,9 @@ const PaymentQRCode: React.FC<PaymentQRCodeProps> = ({ amount }) => {
                 <img src={paytm} alt="Icon" className="w-10 h-10" />
                 <img src={phonepe} alt="Icon" className="w-10 h-10" />
             </div>
+            <div className='container max-w-fit mx-auto rounded p-3 border border-cyan-600'>
+                Cash On Delivery
+            </div>
             <p className="text-sm mt-6">QR Code by <strong>UPIGateway</strong></p>
         </div>
     );

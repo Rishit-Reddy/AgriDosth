@@ -268,6 +268,7 @@ const authSlice = createSlice({
       .addCase(signOut.fulfilled, (state) => {
         state.loading = false;
         state.user = null;
+        state.confirmationResult = null;
       })
       .addCase(signOut.rejected, (state, action: PayloadAction<any>) => {
         state.loading = false;

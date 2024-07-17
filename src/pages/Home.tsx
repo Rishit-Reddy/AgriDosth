@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import CategoryFilterBar from "../components/filter/CategoryFilterBar";
 import ProductsDisplay from "../components/products/ProductsDisplay"; 
 import CarouselComponent from "../components/carousel/CarouselComponent";
+import ChatBotUI from "../components/chatbot/ChatBotUI";
 
 const Home: React.FC = () => {
     const user = useAppSelector((state) => state.auth.user);
@@ -41,8 +42,9 @@ const Home: React.FC = () => {
               subCategory={subCategory}
               setSubCategory={setSubCategory}
             />
-            <CarouselComponent />
+            <CarouselComponent /> {/* Add the Banner */}
             <ProductsDisplay selectedCategory={selectedCategory} subCategory={subCategory} />
+            <ChatBotUI />
         </>
     );
 }
