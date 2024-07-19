@@ -35,6 +35,7 @@ export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState> & {
   cart: CartState; // Include CartState in the RootState type
   search: SearchState;
+  totalPrice: TotalPriceState;
 };
 export type AppDispatch = typeof store.dispatch;
 
