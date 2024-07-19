@@ -8,6 +8,7 @@ import MobileSearchBar from '../components/Navbar/MobileSearchbar';
 import translateText from '../utilites/googleTranslation'; 
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { setTotalPrice } from '../redux/cart/TotalPrice';
 
 const CartPage: React.FC = () => {
     const cartItems = useAppSelector((state) => state.cart.items);
@@ -64,7 +65,8 @@ const CartPage: React.FC = () => {
 
     const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
     const totalCost = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
-
+    dispatch(setTotalPrice(totalCost));
+    
     return (
         <>
             <Navbar />

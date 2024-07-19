@@ -5,19 +5,21 @@ import storage from 'redux-persist/lib/storage'; // defaults to localStorage for
 import authReducer from './auth/authSlice';
 import cartReducer, { CartState } from './cart/cartSlice'; // Import the cart reducer and CartState
 import searchReducer, { SearchState } from './searchSlice/searchSlice'; // ImpIch redthe r
+import totalPriceReducer, {TotalPriceState} from './cart/TotalPrice'; 
 
 // Combine all your reducers into a rootReducer
 const rootReducer = combineReducers({
   auth: authReducer,
   cart: cartReducer, // Add the cart reducer
   search: searchReducer, // Add the search reducer
+  totalPrice: totalPriceReducer,
 });
 
 // Create a persist config
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth', 'cart', 'search'], // Persist both auth and cart reducers
+  whitelist: ['auth', 'cart', 'search', 'totalPrice'], // Persist both auth and cart reducers
 };
 
 // Create a persisted reducer

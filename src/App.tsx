@@ -45,7 +45,7 @@ function App() {
         <Route path="/cart" element={user ? <CartPage /> : <Navigate to="/login" />} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="*" element={<Navigate to={user ? "/" : "/login"} />} />
-        <Route path='/payment' element={user ? <PaymentQRCode amount={350}/> : <Navigate to="/" />} />
+        <Route path='/payment' element={user ? <PaymentQRCode /> : <Navigate to="/" />} />
       </Routes>
     </Router>
   );

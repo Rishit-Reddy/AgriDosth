@@ -7,6 +7,8 @@ import { signOut } from '../../redux/auth/authSlice';
 import SearchBar from './SearchBar'; // Import the SearchBar component
 import WeatherWidget from './WeatherWidget';
 
+import navLogo from '../../assets/navLogo.png';
+
 const Navbar = () => {
   const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -30,15 +32,20 @@ const Navbar = () => {
     <nav className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
-          {/* Logo Section */}
           <div className="flex-shrink-0 flex items-center px-3">
+            <Link to="/">
+              <img src={navLogo} alt="Logo" className="h-20" />
+            </Link>
+          </div>
+          {/* Title */}
+          <div className="flex-shrink-0 flex items-center">
             <Link to="/">
               <h3 className="text-2xl font-bold text-blue-600">{t('common.title')}</h3>
             </Link>
           </div>
           {/* Search Bar */}
           <div className="hidden sm:flex flex-1 justify-center sm:justify-start px-4">
-            <SearchBar /> {/* Use the SearchBar component */}
+            <SearchBar /> 
           </div>
           {/* Right Section */}
           <div className="hidden sm:flex sm:items-center sm:ml-6 sm:space-x-8">
