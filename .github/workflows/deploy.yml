@@ -24,7 +24,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          REACT_APP_ASSET_PATH: "/AgriDosth"
+          REACT_APP_ASSET_PATH: "/"
 
       - name: Copy CNAME file to dist
         run: cp CNAME dist/CNAME
