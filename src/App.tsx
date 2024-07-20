@@ -34,7 +34,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <Router basename="/AgriDosth">
+    <Router basename="/">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
